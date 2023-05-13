@@ -20,7 +20,7 @@ def _backproject_points(
     """
     # -- Backproject i points and tranform to j-camera coordinate system.
 
-    i_points_3d_i: torch.Tensor = kornia.depth_to_3d(
+    i_points_3d_i: torch.Tensor = kornia.geometry.depth.depth_to_3d(
         depth_i, k_i, normalize_points=normalize_points
     )  # Nx3xHxW
     i_points_3d_i = i_points_3d_i.permute(0, 2, 3, 1)  # NxHxWx3
@@ -45,9 +45,9 @@ def _transform_points(
             [NxHxWx3]
     """
 
-    j_trans_i = j_pose_w @ kornia.inverse_transformation(i_pose_w)
+    j_trans_i = j_pose_w @ kornia.geometry.linalg.inverse_transformation(i_pose_w)
 
-    points_3d_j = kornia.transform_points(
+    points_3d_j = kornia.geometry.linalg.transform_points(
         j_trans_i[:, None], points_3d_i
     )  # NxHxWx3 -- points from i-image in j-coordinates
     return points_3d_j  # NxHxWx3

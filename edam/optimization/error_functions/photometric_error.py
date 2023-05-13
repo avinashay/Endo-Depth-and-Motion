@@ -47,12 +47,12 @@ def photometric_error_gen(
         (i_points_3d_j.shape[0], i_points_3d_j.shape[1], i_points_3d_j.shape[2], 2)
     )
     for j in range(0, i_points_3d_j.shape[0]):
-        i_points_2d_j[j, ...] = kornia.project_points(
+        i_points_2d_j[j, ...] = kornia.geometry.camera.project_points(
             i_points_3d_j[j, ...], k_j_target[j, ...]
         )
 
     height, width = gray_j.shape[-2:]
-    i_points_2d_j_norm: torch.Tensor = kornia.normalize_pixel_coordinates(
+    i_points_2d_j_norm: torch.Tensor = kornia.geometry.conversions.normalize_pixel_coordinates(
         i_points_2d_j, height, width
     ).double()
 

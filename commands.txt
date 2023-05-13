@@ -1,0 +1,4 @@
+python apps/depth_estimate/__main__.py --image_path /scratch/ayite.a/endo/rectified01/image01/ --model_path /scratch/ayite.a/endo/epoch9 --output_path /scratch/ayite.a/endo/rectified01/out/depth01/ --output_type color
+
+python apps/tracking_ours/__main__.py -d cuda:0 -i /scratch/ayite.a/endo/odom/ -o /scratch/ayite.a/endo/odom/test1/out/
+

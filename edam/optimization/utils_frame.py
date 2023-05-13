@@ -45,12 +45,12 @@ def synthetise_image_and_error(
         1, 1, 1, k_target.shape[0], k_target.shape[1]
     )  # Nx1x1xHxW
 
-    i_points_2d_j: torch.Tensor = kornia.project_points(
+    i_points_2d_j: torch.Tensor = kornia.geometry.camera.project_points(
         i_points_3d_j, camera_matrix_tmp
     ).squeeze(0)
 
     height, width = gray_target.shape[-2:]
-    i_points_2d_j_norm: torch.Tensor = kornia.normalize_pixel_coordinates(
+    i_points_2d_j_norm: torch.Tensor = kornia.geometry.conversions.normalize_pixel_coordinates(
         i_points_2d_j, height, width
     ).double()
 
